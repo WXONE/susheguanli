@@ -25,14 +25,14 @@ typedef struct
  
 typedef struct
 {
-	int lenth;// 当前长度
+	int length;// 当前长度
 	stu *elem; //存储空间基址
 	int listsize;//当前分配的存储容量
 	 
  } linklist;
  void init(linklist & l)//线性表初始化
  {
- 	l.lenth = 0;
+ 	l.length = 0;
  	l.elem = (stu*)malloc(N*sizeof (stu));
  	l.listsize = N;
 	   } 
@@ -82,7 +82,7 @@ typedef struct
  	menu();
  	
   } 
- void shuru(linklist l )//输入学生信息
+ void shuru(linklist & l )//输入学生信息
  {
  	printf ("请输入学生姓名：");
  	fflush(stdin); //清除数据缓冲区，得到正确的学生信息数据
@@ -94,7 +94,7 @@ typedef struct
   } 
  void create (linklist &l) //创建学生信息表
  {
- 	if (l.lenth >= l.listsize)//判断学生的人数是否超过初始值（N），如果超过，则重新分配
+ 	if (l.length >= l.listsize)//判断学生的人数是否超过初始值（N），如果超过，则重新分配
 	{
 	 	stu *newbase;
 	 	newbase = (stu*)realloc(l.elem,(N+increase)*sizeof(stu));
@@ -109,10 +109,10 @@ typedef struct
 	  printf ("请输入第一个学生的信息\n");
 	  shuru (l); //调用输入函数
 	  ch = getchar();
-	  strcpy(l.elem[l.lenth].name,stud.name);
-	  l.elem[l.lenth].num = stud.num;
-	  l.elem[l.lenth].room = stud.room;
-	  l.lenth++;
+	  strcpy(l.elem[l.length].name,stud.name);
+	  l.elem[l.length].num = stud.num;
+	  l.elem[l.length].room = stud.room;
+	  l.length++;
 	  printf("\n");
 	  printf("是否继续输入？(请输入y 或者 n):");
 	  scanf ("%c",&ch);
@@ -122,10 +122,10 @@ typedef struct
 	  {
 	  	printf ("请输入第%d个学生的信息：\n",i);
 	  	shuru (l);
-	  	strcpy(l.elem[l.lenth].name,stud.name);
-	  	l.elem[l.lenth].num = stud.num;
-	  	l.elem[l.lenth].room = stud.room;
-	  	l.lenth++;
+	  	strcpy(l.elem[l.length].name,stud.name);
+	  	l.elem[l.length].num = stud.num;
+	  	l.elem[l.length].room = stud.room;
+	  	l.length++;
 	  	i++;
 	  	ch = getchar();
 		printf ("\n");
@@ -145,8 +145,8 @@ typedef struct
  {
  	int i,j;
  	stu temp;
- 	for (i = 0;i<l.lenth-1;i++)
- 		for (j<i+1;j<l.lenth;j++)
+ 	for (i = 0;i<l.length-1;i++)
+ 		for (j<i+1;j<l.length;j++)
  		if(l.elem[i].room>l.elem[j].room)
  		{
  			temp = l.elem[i];
@@ -159,8 +159,8 @@ typedef struct
  {
  	int i,j;
  	stu temp;
-	for (i = 0;i<l.lenth-1;i++)
- 		for (j<i+1;j<l.lenth;j++)
+	for (i = 0;i<l.length-1;i++)
+ 		for (j<i+1;j<l.length;j++)
  		if(l.elem[i].num>l.elem[j].num)
  		{
  			temp = l.elem[i];
@@ -173,8 +173,8 @@ typedef struct
  {
  	int i,j;
  	stu temp;
-	for (i = 0;i<l.lenth-1;i++)
- 		for (j<i+1;j<l.lenth;j++)
+	for (i = 0;i<l.length-1;i++)
+ 		for (j<i+1;j<l.length;j++)
  		if(strcmp(l.elem[i].name,l.elem[j].name)>0)
  		{
  			temp = l.elem[i];
@@ -189,7 +189,7 @@ typedef struct
  	printf ("\n");
 	printf ( "姓名 学号 房号\n" ); 
 	printf ("\n");
-	for (i = 0; i<l.lenth;i++)
+	for (i = 0; i<l.length;i++)
 	{
 		printf ("%-15s    %-3d    %-5d\n",l.elem[i].name,l.elem[i].num,l.elem[i].room);
 		
@@ -235,15 +235,15 @@ typedef struct
   } 
  void chazhao3 (linklist & l)//使用二分法查找
  {
- 	if(l.lenth == 0) panduan3();//如果没有，就返回主界面
+ 	if(l.length == 0) panduan3();//如果没有，就返回主界面
 	 else 
 	 {
-	 	int low = 0 , high = l.lenth, mid , flag = 0;//flag作为标志符，flag为1代表查找成功，0代表失败;
+	 	int low = 0 , high = l.length, mid , flag = 0;//flag作为标志符，flag为1代表查找成功，0代表失败;
 		int m;
 		char ch;
 		printf ("\n"); 
 		printf ("\n"); 
-		pritnf ("按房号查找-->请输入要查找的房号:");
+		printf ("按房号查找-->请输入要查找的房号:");
 		scanf ("%d",&m);
 		printf ("\n");
 		while (low <= high)
@@ -275,7 +275,7 @@ typedef struct
 		    }
 		    else 
 		    {
-		    	if(panduan2())//调用判断函数2
+		    	if(panduan2(ch))//调用判断函数2
 				  chazhao3(l);
 				else
 				{
@@ -289,10 +289,10 @@ typedef struct
 }
  void chazhao2(linklist & l)//按学号查找
  {
- 	if (l.lenth == 0)panduan3();
+ 	if (l.length == 0)panduan3();
  	else
  	{
- 		int low = 0 ,high = l.lenth , mid , flag = 0;
+ 		int low = 0 ,high = l.length , mid , flag = 0;
  		int n;
  		char ch ;
  		printf ("\n");
@@ -317,7 +317,7 @@ typedef struct
 		 if ( flag == 1 )
 		 {
 		 	print2 (l,mid);
-		 	if ( puanduan1(ch) )
+		 	if ( panduan1(ch) )
 		 	chazhao2(l);
 		  	else{
 		  		system ("cls");
@@ -339,10 +339,10 @@ typedef struct
  } 
  void chazhao1 (linklist & l)//按照姓名查找
  {
- 	if ( l.lenth == 0 ) panduan3();
+ 	if ( l.length == 0 ) panduan3();
  	else
  	{
- 		int low = 0 , high = l.lenth , mid , flag = 0;
+ 		int low = 0 , high = l.length , mid , flag = 0;
  		printf ("\n");
  		printf ("\n");
  		printf ("按姓名查找 --> 请输入学生姓名：");
@@ -351,21 +351,21 @@ typedef struct
  		printf ("\n");
  		while ( low <= high )
  		{
- 			mid = ( low + hihg ) / 2;
+ 			mid = ( low + high ) / 2;
  			if (strcmp(a,l.elem[mid].name) == 0 )
  			{
  				flag = 1;
  				break;
 			 }
 			else
-				if(strcmp(a,elem[mid].name)>0)
+				if(strcmp(a,l.elem[mid].name)>0)
 					low = mid + 1;
 				else
 					high = mid - 1;
 		 }
 		 if (flag == 1)
 		 {
-		 	print2(l,mid) //打印找到的学生的信息
+		 	print2(l,mid); //打印找到的学生的信息
 			if(panduan1(ch) )	chazhao1(l);
 			else
 			{
@@ -393,26 +393,26 @@ typedef struct
  	char ch;
  	printf ("\n");
  	printf ("插入的学生信息为：\n");
- 	pritnf ("姓名：");
+ 	printf ("姓名：");
 	fflush(stdin);//清空缓存区,得到正确的输入数据
 	gets(stud.name);
 	printf ("学号：");
 	scanf ("%d",&stud.num);
 	printf ("房号：");
 	scanf ("%d",&stud.room);
-	if (l.lenth == 0)
+	if (l.length == 0)
 	{
-		strcpy(l.elem[l.lenth].name,stud.name);
-		l.elem[l.lenth].num = stud.num;
-		l.elem[l.lenth].room = stud.room;
+		strcpy(l.elem[l.length].name,stud.name);
+		l.elem[l.length].num = stud.num;
+		l.elem[l.length].room = stud.room;
 		
  	}
-	for( i = 0 ; i < l.lenthl; i++ )
+	for( i = 0 ; i < l.length; i++ )
 	{
 		if(stud.num < l.elem[i].num)
 		{
 			k = i ;
-			for ( j = l.lenth ; j > k; j--)
+			for ( j = l.length ; j > k; j--)
 			l.elem[j] = l.elem[j-1];
 			strcpy(l.elem[k].name, stud.name);
 			l.elem[k].num = stud.num;
@@ -421,13 +421,13 @@ typedef struct
 		}
 		else
 		{
-			strcpy(l.elem[l.lenth].name,stud.name);
-			l.elem[l.lenth].num = stud.num;
-			l.elem[l.lenth].room = stud.room;
+			strcpy(l.elem[l.length].name,stud.name);
+			l.elem[l.length].num = stud.num;
+			l.elem[l.length].room = stud.room;
 			
 		}
 	}
-	l.lenth++ ;
+	l.length++ ;
 	fflush (stdin);
 	printf ("\n");
 	printf ("是否继续插入 y or n");
@@ -445,7 +445,7 @@ typedef struct
  	printf ("\n"); 	
  	printf ("请输入要删除的学生的学号：");
  	scanf ("%d",&stud.num);
- 	for (i = 0;i<l.lenth;i++)
+ 	for (i = 0;i<l.length;i++)
  	{
  		if(stud.num == l.elem[i].num)
  		{
@@ -458,9 +458,9 @@ typedef struct
 			break; 
 		 }
 	 }
-	 if (i > l.lenth)	printf ("该生不存在\n");
-	 if (k >= 0) l.lenth--;
-	 fflush(stdind);
+	 if (i > l.length)	printf ("该生不存在\n");
+	 if (k >= 0) l.length--;
+	 fflush(stdin);
 	 printf ("\n");
 	 printf ("是否继续？y or n");
 	 scanf ("%c",&ch);
