@@ -469,7 +469,7 @@ typedef struct
 	 else system("cls");
  	
   } 
-  void main() //主函数
+  int main() //主函数
 { 
 	linklist l; //定义线性表 l init(l); //调用初始化函数
 	char ch; 
@@ -562,7 +562,8 @@ typedef struct
 		menu(); 
 	}break; 
    } 
- } 
+ }
+ return 0 ; 
 } 
 	   
 	   
